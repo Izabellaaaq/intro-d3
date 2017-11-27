@@ -18,8 +18,12 @@
     <style>
       .mychart rect {
         fill: steelblue;
+        padding: 10px;
+        margin: 10px;
       }
-
+      .mychart rect:hover {
+        fill: purple;
+      }
       .mychart text {
         fill: white;
         font: 10px sans-serif;
@@ -29,15 +33,14 @@
 
     <script type="text/javascript">
       "use strict"
-      var dados = [40, 80, 96, 76, 23, 42, 32, 90, 11, 22, 14];
+      //, 80, 96, 76, 23, 42, 32, 90, 11, 22, 14
+      var dados = [40,80, 96, 76, 23, 42, 32, 90, 11, 22, 14, 200];
       var largura = 200,
           altura = 500;
-
       var svg = d3.select('#chart')
                 .append('svg')
                 .attr('width', largura)
                 .attr('height', altura);
-
       /* Edite o código abaixo para criar um gráfico de barras horizontais
        *
        * Crie funções que a partir dos dados definem os atributos x, y, width
@@ -48,16 +51,14 @@
        * O índice é importante para dizer onde a barra será desenhada, por exemplo.
        * (Nem pense em fazer hardcoded :)).
        */
-
-      svg.selectAll('rect')
-          .data(dados)
-          .enter()
-            .append('rect')
-              .attr('x', 0) // A função com dois parâmetros pode entrar aqui
-              .attr('y', 0) // e aqui
-              .attr('width', 30)
-              .attr('height', 20);
-
+      var barras = svg.selectAll('rect')
+                      .data(dados)
+                      .enter()
+                        .append('rect')
+                        .attr('x', function(d) {return 0;}) // Que tal uma função com dois parâmetros: d e i?
+                        .attr('y', function(d, i) {return i*30;})
+                        .attr('width', function(d) {return d;})
+                        .attr('height', 20)
       /* Mais dicas :
        * - As barras ficam mais legíveis se não encostarem umas nas outras. Para isso
        * a maneira mais fácil é diminuir um pouco a largura delas (como elas estao deitadas,
@@ -68,7 +69,6 @@
        * Se ela tiver números mágicos, vamos chamar Dalton, Jorge e João!
        * - O comprimento do array de dados é dados.length
        */
-
     </script>
   </body>
 </html>
