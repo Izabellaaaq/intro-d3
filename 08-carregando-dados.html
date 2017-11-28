@@ -19,10 +19,10 @@
 
   <style>
     .mychart rect {
-      fill: pink;
+      fill: purple;
     }
     .mychart rect:hover {
-      fill: purple;
+      fill: pink;
     }
     .mychart text {
       font: 12px sans-serif;
@@ -83,7 +83,7 @@
               .call(d3.axisLeft(y))  // gera eixo a partir da escala
       grafico.append("text")
         .attr("transform", "translate(-30," + (alturaVis + margin.top)/2 + ") rotate(-90)")
-        .text("Frequencia em porcentagem");
+        .text("Frequência (%)");
     }
     d3.tsv('dados/alphabet.tsv', function(dados) {
       desenhaBarras(dados);
