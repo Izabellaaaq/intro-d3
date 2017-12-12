@@ -11,7 +11,7 @@
 <body>
   <div class="container">
     <div class="row">
-      <h2>Movimentação de ciclista e admiradores do Ponto Turístico principal do Açude Velho.</h2>
+      <h2>Movimentação de ciclista e admiradores dos Pontos Turísticos do Açude Velho.</h2>
     </div>
     <div class="row mychart" id="chart">
     </div>
@@ -74,14 +74,14 @@
                 .attr('r', 4)
                 .attr('fill', "green")
       //
-      // grafico.selectAll('g')
-      //         .data(dados.filter((d) => d.local == "burrinhos"))
-      //         .enter()
-      //           .append('circle')
-      //           .attr('cx', d => x(d.horario_inicial))
-      //           .attr('cy', d => y(d.total_ciclistas))
-      //           .attr('r', 2)
-      //           .attr('fill', "blue")
+      grafico.selectAll('g')
+              .data(dados.filter((d) => d.local == "burrinhos"))
+              .enter()
+                .append('circle')
+                .attr('cx', d => x(d.horario_inicial))
+                .attr('cy', d => y(d.total_ciclistas))
+                .attr('r', 4)
+                .attr('fill', "brown")
       //
       // grafico.selectAll('g')
       //         .data(dados.filter((d) => d.local == "jackson"))

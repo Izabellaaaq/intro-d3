@@ -11,7 +11,7 @@
 <body>
   <div class="container">
     <div class="row">
-      <h2>Barras com dados vindos de uma url</h2>
+      <h2>Dados de Boqueirão</h2>
     </div>
     <div class="row mychart" id="chart">
     </div>
@@ -21,6 +21,11 @@
     .mychart rect {
       fill: purple;
     }
+
+    .mychart dot {
+      fill: #000;
+    }
+
     .mychart rect:hover {
       fill: pink;
     }
@@ -28,6 +33,8 @@
       font: 12px sans-serif;
       text-anchor: left;
     }
+
+
   </style>
 
   <script type="text/javascript">
@@ -51,12 +58,14 @@
       /*
        * As escalas
        */
+      var value = function(d) {return d.mes >= 1 & d.mes <=4);}// Configure essa escala com domain, range e padding
+      color = d3.scaleOrdinal(d3.schemmaCategory10);
+
       var x = d3.scaleBand()
-                .domain(dados.map((dado, indice) => dado.letra))
-                .rangeRound([0,larguraVis])
-                .padding(.1); // Configure essa escala com domain, range e padding
+                .domain(Math.min(...dados.map((d, i)=> d.noventa_percentil))
+                .rangeRound([0,larguraVis]); // Configure essa escala com domain, range e padding
       var y = d3.scaleLinear()
-                .domain([0, d3.max(dados, (d, i) => d.valor*100)])
+                .domain(Math.min(...dados.map((d, i)=> d.dez_percentil))
                 .rangeRound( [alturaVis, 0]);// Configure essa escala com domain e range
                                // Lembre que uma escala pode converter de 1..10 -> 100..1
       // === ATÉ DAQUI ===
@@ -66,7 +75,8 @@
       grafico.selectAll('g')
               .data(dados)
               .enter()
-                .append('rect')
+                .append('circle')
+                  .attr("class", "dot")
                   .attr('x', d => x(d.letra))   // usando a escala definida acima
                   .attr('width', x.bandwidth()) // largura da barra via escala
                   .attr('y', d => y(d.valor*100))
