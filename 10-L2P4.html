@@ -16,8 +16,31 @@
     <div class="row mychart" id="chart">
     </div>
   </div>
+  <div id="tooltip" class="hidden">
+        <p id="titulo_tooltip"></p>
+ 		                 <p><b id="value">0</b></p>
+ 		         </div>
 
   <style>
+  #tooltip {
+   position: absolute;
+   width: auto;
+   height: auto;
+   padding: 10px;
+   background-color: #D3F6DB;
+   border-radius: 10px;
+ }
+
+ #tooltip.hidden {
+   display: none;
+ }
+
+ #tooltip p {
+   margin: 0;
+   font-family: sans-serif;
+   font-size: 12px;
+   line-height: 20px;
+ }
     .mychart rect {
       fill: steelblue;
     }
@@ -113,17 +136,19 @@
       grafico.append("text")
           .attr("transform", "translate(" + larguraVis/2 +"," + (alturaVis+margin.bottom) + ")")
           .text("Horário");
-      // grafico.append("text")
-      //     .attr("transform", "translate(10,10)")
-      //     .text("Azul: Burrinhos");
-      //
-      // grafico.append("text")
-      //     .attr("transform", "translate(10,30)")
-      //     .text("Laranja: Bobs");
-      //
-      // grafico.append("text")
-      //     .attr("transform", "translate(10,50)")
-      //     .text("Vermelho: Jackson");
+
+          d3.select("#tooltip") // reparou que tem uma div escondida no html?
+  						.style("left", (d3.event.pageX - 50) + "px")
+  						.style("top", d3.event.pageY + "px")
+  						.select("#value")
+  						.text("texto");
+
+             d3.select("#tooltip #titulo_tooltip")
+              .text("texto");
+  					// Mostra o tooltip
+  					d3.select("#tooltip").classed("hidden", true);
+
+
     }
     d3.csv('https://raw.githubusercontent.com/luizaugustomm/pessoas-no-acude/master/dados/processados/dados.csv', function(dados) {
       console.log("provavelmente acontece depois")
